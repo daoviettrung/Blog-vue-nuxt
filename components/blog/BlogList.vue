@@ -1,0 +1,100 @@
+<template>
+  <div id="form-list" class="card mt-5 mr-4">
+    <div class="card-header">List Blog</div>
+    <div class="card-body">
+      <table id="table">
+        <tr>
+          <th>Id</th>
+          <th>Tin</th>
+          <th>Loại</th>
+          <th>Trạng thái</th>
+          <th>Vị trí</th>
+          <th>Ngày</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <tbody>
+          <tr v-for="data in dataList" :key="data.id" v-bind:data="data">
+            <td>{{ data.id }}</td>
+            <td>{{ data.title }}</td>
+            <td>{{ getNameCate(data.category) }}</td>
+            <td>{{ data.public }}</td>
+            <td>{{ getNamePositions(data.position) }}</td>
+            <td>{{ data.data_pubblic }}</td>
+            <td>
+              <a class="btn btn-outline-primary">Edit</a>
+            </td>
+
+            <td>
+              <a @click="deleteData(data.id)" class="btn btn-outline-danger"
+                >Delete</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer"></div>
+  </div>
+</template>
+<script>
+import { API, CATEGORIES, POSITIONS } from 'assets/constans'
+export default {
+  props: {
+    dataList: Array,
+  },
+  methods: {
+    async deleteData(id) {
+      if (confirm('Do you want to delete?')) {
+        this.$axios.$delete(API + id).then(() => {
+          this.dataList
+        })
+        // this.dataList.forEach(function(value, index, object){
+        //   if(value.id === id){
+        //     object.splice(index-1, index);
+        //   }
+        // });
+      }
+    },
+    getNameCate(id) {
+      let cate = CATEGORIES.find((category) => {
+        return category.id === id
+      })
+      return cate && cate.name
+    },
+    getNamePositions(id) {
+      var posi = POSITIONS.forEach(function(value){
+         if(JSON.stringify(value.id) === JSON.stringify(id)){
+          return value.name;
+         }
+         
+      });
+      return posi;
+    },
+  },
+}
+</script>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  margin-left: -20px;
+  margin-right: -30px;
+  width: 103%;
+  height: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+#form-list.card-body {
+  margin-top: -1000px;
+}
+.card-body table {
+  margin-top: -20px;
+  margin-bottom: -20px;
+}
+</style>
