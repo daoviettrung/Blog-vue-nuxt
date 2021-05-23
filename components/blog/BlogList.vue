@@ -1,6 +1,8 @@
 <template>
-  <div id="form-list" class="card mt-5 mr-4">
-    <div class="card-header">List Blog</div>
+  <div id="form-list" class="card mt-3 mr-4">
+    <div class="card-header">
+      <h3>List Blog</h3>
+    </div>
     <div class="card-body">
       <table id="table">
         <tr>
@@ -22,7 +24,9 @@
             <td>{{ getNamePositions(data.position) }}</td>
             <td>{{ data.data_pubblic }}</td>
             <td>
-              <a class="btn btn-outline-primary">Edit</a>
+              <a class="btn btn-outline-primary"
+                ><NuxtLink :to="`/blog/${data.id}`">Edit</NuxtLink></a
+              >
             </td>
 
             <td>
@@ -57,19 +61,19 @@ export default {
       }
     },
     getNameCate(id) {
-      let cate = CATEGORIES.find((category) => {
-        return category.id === id
+      var cate = CATEGORIES.find((category) => {
+        return category.id == id
       })
       return cate && cate.name
     },
-    getNamePositions(id) {
-      var posi = POSITIONS.forEach(function(value){
-         if(JSON.stringify(value.id) === JSON.stringify(id)){
-          return value.name;
-         }
-         
-      });
-      return posi;
+    getNamePositions: function (id) {
+      var namePosi = ''
+      for (var i in POSITIONS) {
+       if(POSITIONS[i].id[0] === id[0]){
+         namePosi = POSITIONS[i].name;
+       }
+      }
+       return namePosi
     },
   },
 }
@@ -84,6 +88,15 @@ table {
   height: 100%;
 }
 
+.card-header{
+  height: 60px;
+}
+
+h3{
+  text-align: left;
+  margin-top: 10px;
+  color: black;
+}
 td,
 th {
   border: 1px solid #dddddd;

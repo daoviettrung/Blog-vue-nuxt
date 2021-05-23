@@ -11,37 +11,47 @@
         </div>
         <div class="depcription mt-3">
           <h6>Mô tả ngắn</h6>
-          <input id="input-depcription" class="width-input" type="input" v-model="posts.depcription" />
+          <input
+            id="input-depcription"
+            class="width-input"
+            type="input"
+            v-model="posts.des"
+          />
         </div>
         <div class="detail mt-3">
           <h6>Chi tiết</h6>
-          <input id="input-detail" class="width-input" type="input" v-model="posts.detail" />
+          <input
+            id="input-detail"
+            class="width-input"
+            type="input"
+            v-model="posts.detail"
+          />
         </div>
         <div class="image mt-3">
           <h6>Hình ảnh:</h6>
-          <input type="file"/>
+          <input type="file" />
         </div>
         <div class="location mt-3">
           <h6>Vị trí:</h6>
           <ul class="list-location mt-2">
             <li class="new-select">
-              <input class="any" id="any" name="any" type="checkbox" v-model="posts.checked" />
-              <label id="any" for="any">Viet Nam</label>
+              <input type="checkbox" value="1" v-model="posts.position" />
+              <label>Viet Nam</label>
             </li>
 
             <li class="new-select">
-              <input id="item1" name="item1" type="checkbox" v-model="posts.checked" />
-              <label id="item1" for="item1">Chau A</label>
+              <input type="checkbox" value="[2]" v-model="posts.position" />
+              <label>Chau A</label>
             </li>
 
             <li class="new-select">
-              <input id="item2" name="item2" type="checkbox" v-model="posts.checked" />
-              <label id="item2" for="item2">Chau Au</label>
+              <input type="checkbox" value="[3]" v-model="posts.position" />
+              <label>Chau Au</label>
             </li>
 
             <li class="new-select">
-              <input id="item3" name="item3" type="checkbox" v-model="posts.checked"/>
-              <label id="item3" for="item3">Chau My</label>
+              <input type="checkbox" value="[4]" v-model="posts.position" />
+              <label>Chau My</label>
             </li>
           </ul>
         </div>
@@ -49,73 +59,115 @@
           <h6>Public</h6>
           <ul class="list-location mt-2">
             <li class="new-select">
-              <input class="any" id="any" name="any" value="Yes" type="radio" v-model="posts.picked"/>
-              <label id="any" for="any">Yes</label>
+              <input value="true" type="radio" v-model="posts.public" />
+              <label>Yes</label>
             </li>
 
             <li class="new-select">
-              <input id="item1" name="item1" type="radio" v-model="posts.picked" />
-              <label id="item1" for="item1">No</label>
+              <input value="false" type="radio" v-model="posts.public" />
+              <label>No</label>
             </li>
           </ul>
         </div>
         <div class="row mt-3">
           <div class="cate col-md-6">
             <h6>Loại:</h6>
-            <select
-              class="width-input"
-              name="select-cate">
-              <option v-for="cate in cates" :key="cate.id" v-bind:cate="cate">
+            <select class="width-input" name="select-cate" v-model="posts.cate">
+              <option v-for="cate in cates" :key="cate.id">
                 {{ cate.name }}
               </option>
             </select>
           </div>
           <div class="date col-md-6">
             <h6>Date public</h6>
-            <input
-              class="width-input"
-              type="date"
-              id="birthday"
-              name="birthday"
-            />
+            <input class="width-input" type="date" v-model="posts.date" />
           </div>
         </div>
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-success" @click="postData">Submit</button>
+        <button type="button" class="btn btn-success" @click="postData">
+          Submit
+        </button>
         <button type="button" class="btn btn-primary">Clear</button>
       </div>
     </form>
   </div>
 </template>
 <script>
-import { CATEGORIES } from 'assets/constans';
+import { API, CATEGORIES } from 'assets/constans'
 export default {
-  data(){
-    return{
-      cates : CATEGORIES,
-      posts :{
-        title : null,
-        depcription :null,
-        checked :null,
-        detail : null,
-      }
+  data() {
+    return {
+      cates: CATEGORIES,
+      posts: {
+        errors: [],
+        title: null,
+        depcription: null,
+        position: [],
+        detail: null,
+        date: null,
+        cate: '',
+        listBlog: [],
+        public: '',
+      },
     }
   },
-  methods:{
-    postData(e){
-      console.log(this.posts);
-      console.log("hihi");
-    }
-  }
+  async fetch() {
+    this.posts.listBlog = await fetch(API).then((res) => res.json())
+  },
+
+  methods: {
+    validate() {
+      if (this.posts.title == null ||
+      this.posts.depcription == null ||
+      this.posts.detail == null) {
+        alert("Can't be left empty");
+        return false;
+      }
+      return true;
+    },
+    postData() {
+      if(this.validate()){
+        var idCate
+      CATEGORIES.forEach((value) => {
+        if (value.name == this.posts.cate) {
+          idCate = value.id
+        }
+      })
+      var max = 0
+      this.posts.listBlog.forEach((value) => {
+        if (value.id > max) {
+          max = value.id
+        }
+      })
+      this.$axios
+        .post(API, {
+          id: max + 1,
+          title: this.posts.title,
+          des: this.posts.des,
+          detail: this.posts.detail,
+          category: idCate,
+          public: this.posts.public,
+          data_pubblic: this.posts.date,
+          position: this.posts.position,
+        })
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+      }
+    },
+  },
 }
 </script>
 <style>
-.card-header{
+.card-header {
   height: 50px;
 }
 
-.card-header h3{
+.card-header h3 {
   margin-top: 2px;
   text-align: left;
 }
@@ -153,3 +205,4 @@ export default {
   text-align: center;
 }
 </style>
+

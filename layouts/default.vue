@@ -1,6 +1,5 @@
 <template>
   <div>
-      <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
     <AppHeader></AppHeader>
     <div class="row">
       <div class="col-md-2">

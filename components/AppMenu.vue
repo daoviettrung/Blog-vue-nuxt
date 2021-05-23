@@ -6,7 +6,7 @@
     <a class="text-dark ml-4 mt-3"><NuxtLink to="/blog/create"><i class="fa fa-plus-square-o" aria-hidden="true"></i> New
     </NuxtLink>
     </a>
-    <a class="text-dark ml-4 mt-3"><NuxtLink to="/blog/create"><i class="fa fa-search" aria-hidden="true"></i> Search
+    <a class="text-dark ml-4 mt-3"><NuxtLink to="/blog/search"><i class="fa fa-search" aria-hidden="true"></i> Search
     </NuxtLink></a>
     <i class="fas fa-list"></i>
   </div>
