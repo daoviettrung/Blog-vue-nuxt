@@ -1,6 +1,6 @@
 <template>
-  <div id="form-create" class="card mr-4 mt-5">
-    <form id="form-edit" class="">
+  <div id="form-edit" class="card mr-4">
+    <form>
       <div class="card-header">
         <h3 class="text-dark">Edit Blogs</h3>
       </div>
@@ -147,6 +147,7 @@ export default {
 </script>
 <style>
 #form-edit {
+  margin-top: 90px;
 }
 .card-header {
   height: 50px;
@@ -155,11 +156,6 @@ export default {
 .card-header h3 {
   margin-top: 2px;
   text-align: left;
-}
-
-#form-create {
-  z-index: 2;
-  position: relative;
 }
 .width-input {
   width: 98%;

@@ -173,8 +173,7 @@ export default {
 }
 
 #form-create {
-  z-index: 2;
-  position: relative;
+  margin-top: 90px;
 }
 .width-input {
   width: 98%;

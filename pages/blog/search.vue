@@ -1,13 +1,19 @@
 <template>
   <div class="list-blog">
     <BlogSearchData v-on:resultSearch="dataSearchs"></BlogSearchData>
-    <BlogList v-bind:dataList="listBlog"></BlogList>
+    <BlogList v-bind:style="marginT" v-bind:dataList="listBlog"></BlogList>
   </div>
 </template>
+<style>
+BlogList{
+  margin-top: 200px;
+}
+</style>
 <script>
 export default {
   data() {
     return {
+      marginT : 'margin-top : 15px',
       listBlog: [],
     }
   },

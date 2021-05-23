@@ -1,5 +1,5 @@
 <template>
-  <div id="form-list" class="card mt-3 mr-4">
+  <div id="form-list" class="card mr-4">
     <div class="card-header">
       <h3>List Blog</h3>
     </div>
@@ -53,11 +53,11 @@ export default {
         this.$axios.$delete(API + id).then(() => {
           this.dataList
         })
-        // this.dataList.forEach(function(value, index, object){
-        //   if(value.id === id){
-        //     object.splice(index-1, index);
-        //   }
-        // });
+        for (var i = 0; i < this.dataList.length; i++) {
+          if (this.dataList[i].id == id) {
+            this.dataList.splice(i, 1);
+          }
+        }
       }
     },
     getNameCate(id) {
@@ -69,16 +69,20 @@ export default {
     getNamePositions: function (id) {
       var namePosi = ''
       for (var i in POSITIONS) {
-       if(POSITIONS[i].id[0] === id[0]){
-         namePosi = POSITIONS[i].name;
-       }
+        if (POSITIONS[i].id[0] === id[0]) {
+          namePosi = POSITIONS[i].name
+        }
       }
-       return namePosi
+      return namePosi
     },
   },
 }
 </script>
 <style>
+#form-list {
+  margin-top: 80px;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -88,11 +92,11 @@ table {
   height: 100%;
 }
 
-.card-header{
+.card-header {
   height: 60px;
 }
 
-h3{
+h3 {
   text-align: left;
   margin-top: 10px;
   color: black;
@@ -104,7 +108,7 @@ th {
   padding: 8px;
 }
 #form-list.card-body {
-  margin-top: -1000px;
+  margin-top: -100px;
 }
 .card-body table {
   margin-top: -20px;

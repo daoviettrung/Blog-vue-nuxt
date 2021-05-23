@@ -14,7 +14,9 @@
 .header {
   background: #201e1e;
   height: 70px;
-  /* position: fixed; */
+    position: fixed;
+    width: 100%;
+    z-index: 2;
 }
 .header img {
   width: 100px;

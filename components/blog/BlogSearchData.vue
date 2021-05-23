@@ -1,7 +1,7 @@
 <template>
-    <div class="card mt-5">
+    <div id="blog-search" class="card">
         <div class="card-header">
-            <h5>Search blog</h5>
+            <h3>Search blog</h3>
         </div>
     <div class="card-body">
         <div class="row">
@@ -31,6 +31,9 @@ export default {
 }
 </script>
 <style>
+#blog-search{
+    margin-top: 90px;
+}
 .card-header{
     height: 40px;
 }
