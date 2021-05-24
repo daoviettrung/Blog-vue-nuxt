@@ -19,7 +19,7 @@
     z-index: 2;
 }
 .header img {
-  width: 100px;
+  width: 80px;
   height: 50px;
   margin-top: 8px;
   margin-left: 40px;

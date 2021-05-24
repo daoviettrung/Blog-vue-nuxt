@@ -5,9 +5,6 @@
   </div>
 </template>
 <style>
-BlogList{
-  margin-top: 200px;
-}
 </style>
 <script>
 export default {

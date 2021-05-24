@@ -53,11 +53,7 @@ export default {
         this.$axios.$delete(API + id).then(() => {
           this.dataList
         })
-        for (var i = 0; i < this.dataList.length; i++) {
-          if (this.dataList[i].id == id) {
-            this.dataList.splice(i, 1);
-          }
-        }
+        this.$emit('callBackDataDelete');
       }
     },
     getNameCate(id) {
@@ -69,7 +65,7 @@ export default {
     getNamePositions: function (id) {
       var namePosi = ''
       for (var i in POSITIONS) {
-        if (POSITIONS[i].id[0] === id[0]) {
+        if (POSITIONS[i].id == id) {
           namePosi = POSITIONS[i].name
         }
       }

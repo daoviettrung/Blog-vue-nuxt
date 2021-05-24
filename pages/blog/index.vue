@@ -1,6 +1,8 @@
 <template>
 <div class="list-blog">
-  <BlogList v-bind:dataList="listBlog"></BlogList>
+  <BlogList v-bind:dataList="listBlog"
+  v-on:callBackDataDelete="callBackDataDelete"
+  ></BlogList>
 </div>
 </template>
 <script>
@@ -15,5 +17,12 @@ export default {
       res.json()
     );
   },
+
+  methods:{
+    async callBackDataDelete(){
+       const dataNew = await this.$axios.$get("http://localhost:3000/blogs");
+       this.listBlog = dataNew
+    }
+  }
 }
 </script>

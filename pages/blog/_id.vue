@@ -1,5 +1,5 @@
 <template>
-    <BlogFormEdit v-bind:idNew="idNew"></BlogFormEdit>
+    <BlogCreateEdit v-bind:idNew="idNew"></BlogCreateEdit>
 </template>
 <script>
 export default {

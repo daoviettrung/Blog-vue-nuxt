@@ -16,9 +16,9 @@ export const CATEGORIES = [
   ];
 
   export const POSITIONS = [
-    { id: [1], name: "Việt Nam" },
-    { id: [2], name: "Châu Á" },
-    { id: [3], name: "Châu Âu" },
-    { id: [4], name: "Châu Mỹ" },
+    { id: 1, name: "Việt Nam" },
+    { id: 2, name: "Châu Á" },
+    { id: 3, name: "Châu Âu" },
+    { id: 4, name: "Châu Mỹ" },
   ];
   
