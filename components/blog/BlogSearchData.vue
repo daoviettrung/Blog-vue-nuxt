@@ -27,7 +27,7 @@ export default {
         searchData(){
             this.$emit('resultSearch', this.dataSearch);
         }
-    }
+    },
 }
 </script>
 <style>

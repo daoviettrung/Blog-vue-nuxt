@@ -1,4 +1,4 @@
-export const API = "http://localhost:3000/blogs/";
+export const API = "http://localhost:81/api-conn-vue/public/api/blog";
 export const CATEGORIES = [
     { id: 1, name: "Bong ro" },
     { id: 2, name: "Bong da" },

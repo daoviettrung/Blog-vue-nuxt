@@ -50,7 +50,7 @@ export default {
   methods: {
     async deleteData(id) {
       if (confirm('Do you want to delete?')) {
-        this.$axios.$delete(API + id).then(() => {
+        this.$axios.$delete(API +"/"+ id).then(() => {
           this.dataList
         })
         this.$emit('callBackDataDelete');
@@ -71,6 +71,7 @@ export default {
       }
       return namePosi
     },
+    
   },
 }
 </script>

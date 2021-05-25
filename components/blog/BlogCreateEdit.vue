@@ -33,33 +33,32 @@
         </div>
         <div class="location mt-3">
           <h6>Vị trí:</h6>
-          <ul class="list-location mt-2">
-            <li
-              v-for="(position, index) in posis"
-              :key="index"
-              class="new-select"
-            >
-              <input
-                style="margin-left: 10px"
-                :id="position.id"
-                type="checkbox"
-                :value="position.id"
-                v-model="posts.position"
-              />
-              <label>{{ position.name }}</label>
-            </li>
-          </ul>
+          <div
+            v-for="(position, index) in posis"
+            :key="index"
+            class="form-check form-check-inline"
+          >
+            <input
+              class="form-check-input"
+              :id="position.id"
+              v-model="posts.position"
+              type="checkbox"
+              :value="position.id"
+            /><label id="position" :for="position.id">{{
+              position.name
+            }}</label>
+          </div>
         </div>
-        <div class="public">
+        <div class="public mt-3">
           <h6>Public</h6>
           <ul class="list-location mt-2">
             <li class="new-select">
-              <input value="true" type="radio" v-model="posts.public" />
+              <input value="1" type="radio" v-model="posts.public" />
               <label>Yes</label>
             </li>
 
             <li class="new-select">
-              <input value="false" type="radio" v-model="posts.public" />
+              <input value="0" type="radio" v-model="posts.public" />
               <label>No</label>
             </li>
           </ul>
@@ -67,8 +66,12 @@
         <div class="row mt-3">
           <div class="cate col-md-6">
             <h6>Loại:</h6>
-            <select class="width-input" name="select-cate" v-model="posts.cate">
-              <option v-for="cate in cates" :key="cate.id">
+            <select
+              class="width-input"
+              name="select-cate"
+              v-model="posts.category"
+            >
+              <option v-for="cate in cates" :key="cate.id" :value="cate.id">
                 {{ cate.name }}
               </option>
             </select>
@@ -90,14 +93,13 @@
         <button type="button" class="btn btn-primary">Clear</button>
       </div>
     </form>
+    {{ this.posts }}
   </div>
 </template>
 <script>
 import { API, CATEGORIES, POSITIONS } from 'assets/constans'
+import axios from 'axios'
 export default {
-  async fetch() {
-    this.listBlog = await fetch(API).then((res) => res.json())
-  },
   props: {
     idNew: String,
   },
@@ -109,15 +111,15 @@ export default {
       posts: {
         title: null,
         des: null,
-        position: [],
         detail: null,
+        category: null,
+        public: null,
         data_pubblic: null,
-        category: '',
-        public: '',
+        position: null,
+        thumbs: 'fwefwe',
       },
     }
   },
-
   methods: {
     validate() {
       if (
@@ -132,47 +134,21 @@ export default {
     },
     async postData() {
       if (this.validate()) {
-        if ((this.idNew != "")) {
-          var idCate
-          CATEGORIES.forEach((value) => {
-            if (value.name == this.posts.cate) {
-              idCate = value.id
-            }
-          })
-          var max = 0
-          this.listBlog.forEach((value) => {
-            if (value.id > max) {
-              max = value.id
-            }
-          })
-          this.$axios
-            .post(API, {
-              id: max + 1,
-              title: this.posts.title,
-              des: this.posts.des,
-              detail: this.posts.detail,
-              category: idCate,
-              public: this.posts.public,
-              data_pubblic: this.posts.data_pubblic,
-              position: this.posts.position,
-            })
-            .then(function (response) {
-              console.log(response)
-            })
-            .catch(function (error) {
-              console.log(error)
-            })
+        if (this.idNew == "create"
+        ) {
+           axios.post(API, this.posts)
         } else {
-          await this.$axios.$put(API + this.idNew, this.posts)
+          axios.put(API +"/"+ this.idNew, this.posts)
         }
       }
     },
   },
-
   mounted() {
-    this.$axios.$get(API + this.idNew).then((res) => {
-      this.posts = res
-    })
+    if (this.idNew != "create") {
+      axios
+        .get(API + '/' + this.idNew)
+        .then((response) => (this.posts = response.data.data[0]))
+    }
   },
 }
 </script>
@@ -180,12 +156,10 @@ export default {
 .card-header {
   height: 50px;
 }
-
 .card-header h3 {
   margin-top: 2px;
   text-align: left;
 }
-
 #form-create {
   margin-top: 90px;
 }
@@ -214,8 +188,11 @@ export default {
   width: 98%;
   border-radius: 0, 7%;
 }
+
+#position {
+  margin-bottom: 0.1rem;
+}
 .card-footer {
   text-align: center;
 }
 </style>
-
