@@ -40,13 +40,10 @@
           >
             <input
               class="form-check-input"
-              :id="position.id"
               v-model="posts.position"
               type="checkbox"
               :value="position.id"
-            /><label id="position" :for="position.id">{{
-              position.name
-            }}</label>
+            /><label class="position">{{ position.name }}</label>
           </div>
         </div>
         <div class="public mt-3">
@@ -87,13 +84,12 @@
         </div>
       </div>
       <div class="card-footer">
-        <button type="button" class="btn btn-success" @click="postData">
+        <button type="button" class="btn btn-success" @click="onSubmit">
           Submit
         </button>
         <button type="button" class="btn btn-primary">Clear</button>
       </div>
     </form>
-    {{ this.posts }}
   </div>
 </template>
 <script>
@@ -102,6 +98,7 @@ import axios from 'axios'
 export default {
   props: {
     idNew: String,
+    flagCheckisCreate : Number
   },
   data() {
     return {
@@ -115,7 +112,7 @@ export default {
         category: null,
         public: null,
         data_pubblic: null,
-        position: null,
+        position: [],
         thumbs: 'fwefwe',
       },
     }
@@ -127,27 +124,33 @@ export default {
         this.posts.des == null ||
         this.posts.detail == null
       ) {
-        alert("Can't be left empty")
+        alert("Not be empty ")
+        
         return false
       }
       return true
     },
-    async postData() {
+    async onSubmit() {
       if (this.validate()) {
-        if (this.idNew == "create"
-        ) {
-           axios.post(API, this.posts)
+        if (this.flagCheckisCreate == 1) {
+          let temp = this.posts.position[0]
+          this.posts.position = temp
+          axios.post(API, this.posts)
         } else {
-          axios.put(API +"/"+ this.idNew, this.posts)
+          let temp = this.posts.position[0]
+          this.posts.position = temp
+          axios.put(API + '/' + this.idNew, this.posts)
         }
       }
     },
   },
   mounted() {
-    if (this.idNew != "create") {
-      axios
-        .get(API + '/' + this.idNew)
-        .then((response) => (this.posts = response.data.data[0]))
+    if (this.flagCheckisCreate !== 1) {
+      axios.get(API + '/' + this.idNew).then((response) => {
+        this.posts = response.data.data[0]
+        let temp = this.posts.position
+        this.posts.position = [temp]
+      })
     }
   },
 }
@@ -189,7 +192,7 @@ export default {
   border-radius: 0, 7%;
 }
 
-#position {
+.position {
   margin-bottom: 0.1rem;
 }
 .card-footer {

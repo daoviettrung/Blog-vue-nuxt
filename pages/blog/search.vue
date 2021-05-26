@@ -26,7 +26,7 @@ export default {
   methods: {
     async dataSearchs(dataSearch) {
       axios
-        .get("http://localhost:81/api-conn-vue/public/api/blog" + '/' + dataSearch)
+        .get("http://localhost:81/api-conn-vue/public/api/search" + '/' + dataSearch)
         .then((response) => (this.listBlog = response.data.data))
     },
   },

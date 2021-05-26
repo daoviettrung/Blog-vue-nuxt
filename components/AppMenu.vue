@@ -1,12 +1,12 @@
 
 <template>
-  <div class="sidenav">
-    <a class="text-dark ml-4 mt-3"><NuxtLink to="/blog"><i class="fa fa-list" aria-hidden="true"></i> List
+  <div class="sidenav ">
+    <a class="text-dark ml-1 mt-2"><NuxtLink to="/blog"><i class="fa fa-list" aria-hidden="true"></i> List
     </NuxtLink></a>
-    <a class="text-dark ml-4 mt-3"><NuxtLink to="/blog/create"><i class="fa fa-plus-square-o" aria-hidden="true"></i> New
+    <a class="text-dark ml-1"><NuxtLink to="/blog/new"><i class="fa fa-plus-square-o" aria-hidden="true"></i> New
     </NuxtLink>
     </a>
-    <a class="text-dark ml-4 mt-3"><NuxtLink to="/blog/search"><i class="fa fa-search" aria-hidden="true"></i> Search
+    <a class="text-dark ml-1"><NuxtLink to="/blog/search"><i class="fa fa-search" aria-hidden="true"></i> Search
     </NuxtLink></a>
     <i class="fas fa-list"></i>
   </div>
@@ -33,6 +33,7 @@ export default {}
     font-size: 1em;
     color: #818181;
     display: block;
+    margin-top: -5px;
   }
   
   .sidenav a:hover {

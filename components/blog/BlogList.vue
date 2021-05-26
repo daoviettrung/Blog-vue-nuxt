@@ -20,16 +20,16 @@
             <td>{{ data.id }}</td>
             <td>{{ data.title }}</td>
             <td>{{ getNameCate(data.category) }}</td>
-            <td>{{ data.public }}</td>
+            <td>{{ getNamePublic(data.public) }}</td>
             <td>{{ getNamePositions(data.position) }}</td>
             <td>{{ data.data_pubblic }}</td>
-            <td>
+            <td class = "button-function">
               <a class="btn btn-outline-primary"
                 ><NuxtLink :to="`/blog/${data.id}`">Edit</NuxtLink></a
               >
             </td>
 
-            <td>
+            <td class = "button-function">
               <a @click="deleteData(data.id)" class="btn btn-outline-danger"
                 >Delete</a
               >
@@ -38,11 +38,11 @@
         </tbody>
       </table>
     </div>
-    <div class="card-footer"></div>
   </div>
 </template>
 <script>
-import { API, CATEGORIES, POSITIONS } from 'assets/constans'
+import { API, CATEGORIES, POSITIONS, onDelete } from 'assets/constans'
+
 export default {
   props: {
     dataList: Array,
@@ -50,10 +50,11 @@ export default {
   methods: {
     async deleteData(id) {
       if (confirm('Do you want to delete?')) {
-        this.$axios.$delete(API +"/"+ id).then(() => {
+        this.$axios.$delete(API + '/' + id).then(() => {
           this.dataList
         })
-        this.$emit('callBackDataDelete');
+        // Dua chuoi callBackDataDelete vafo contance
+        this.$emit(onDelete)
       }
     },
     getNameCate(id) {
@@ -64,6 +65,7 @@ export default {
     },
     getNamePositions: function (id) {
       var namePosi = ''
+      // dung flitter
       for (var i in POSITIONS) {
         if (POSITIONS[i].id == id) {
           namePosi = POSITIONS[i].name
@@ -71,7 +73,13 @@ export default {
       }
       return namePosi
     },
-    
+    getNamePublic($id) {
+      if($id == 1){
+        return "public";
+      }
+        return "no public";
+   
+    },
   },
 }
 </script>
@@ -110,5 +118,9 @@ th {
 .card-body table {
   margin-top: -20px;
   margin-bottom: -20px;
+}
+
+.button-function{
+  width: 60px;
 }
 </style>

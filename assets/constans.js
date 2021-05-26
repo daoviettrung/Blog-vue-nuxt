@@ -21,4 +21,6 @@ export const CATEGORIES = [
     { id: 3, name: "Châu Âu" },
     { id: 4, name: "Châu Mỹ" },
   ];
+
+  export const onDelete = "onDelete"
   

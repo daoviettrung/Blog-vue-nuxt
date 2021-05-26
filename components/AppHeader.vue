@@ -19,10 +19,10 @@
     z-index: 2;
 }
 .header img {
-  width: 80px;
+  width: 70px;
   height: 50px;
   margin-top: 8px;
-  margin-left: 40px;
+  margin-left: 100px;
 }
 h3 {
   text-align: center;

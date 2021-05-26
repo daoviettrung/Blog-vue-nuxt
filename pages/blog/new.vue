@@ -1,11 +1,16 @@
 <template>
   <div class="create-blog">
-    <BlogCreateEdit></BlogCreateEdit>
+    <BlogCreateEdit v-bind:flagCheckisCreate ="flagCheckisCreate"></BlogCreateEdit>
   </div>
 </template>
 
 <script>
 export default {
+    data(){
+        return {
+           flagCheckisCreate : 1
+        }
+    },
 }
 </script>
 <style scoped>
